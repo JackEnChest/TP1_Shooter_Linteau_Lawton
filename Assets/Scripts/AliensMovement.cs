@@ -13,11 +13,6 @@ public class AliensMovement : MonoBehaviour
     {
         spaceMarine = GameObject.Find("SpaceMarine");
         navMeshAgent = GetComponent<NavMeshAgent>();
-
-        if (navMeshAgent != null)
-        {
-            navMeshAgent.destination = spaceMarine.transform.position;
-        }
     }
 
     // Update is called once per frame
@@ -25,9 +20,9 @@ public class AliensMovement : MonoBehaviour
     {
         if (gameObject.activeSelf)
         {
-            if (navMeshAgent == null)
+            if (navMeshAgent != null)
             {
-                transform.position = Vector3.MoveTowards(transform.position, spaceMarine.transform.position, speed * Time.deltaTime);
+                navMeshAgent.destination = spaceMarine.transform.position;
             }
         }
     }
