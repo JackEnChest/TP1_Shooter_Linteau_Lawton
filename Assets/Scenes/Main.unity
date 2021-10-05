@@ -2493,10 +2493,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alien (7)
       objectReference: {fileID: 0}
-    - target: {fileID: 1326983052875474, guid: e5bafbba3a71297409e8f8d6cc789c8b, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4558308299672658, guid: e5bafbba3a71297409e8f8d6cc789c8b, type: 3}
       propertyPath: m_RootOrder
       value: 7
