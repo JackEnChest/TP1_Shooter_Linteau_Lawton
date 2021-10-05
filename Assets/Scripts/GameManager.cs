@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     {
         portals = GameObject.FindGameObjectsWithTag("Portal");
         aliens = GameObject.FindGameObjectsWithTag("Alien");
+        for(int i = 0; i < aliens.Length; i++)
+        {
+            aliens[i].SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -20,21 +24,23 @@ public class GameManager : MonoBehaviour
     {
         if ((spawnTime += Time.deltaTime) >= 1)
         {
+            spawnTime = 0;
             for (int i = 0; i < aliens.Length; i++)
             {
                 for (int j = 0; j < portals.Length; j++)
                 {
-                    if (portals[currentPortal].activeSelf == false)
+                    if (!portals[currentPortal].activeSelf)
                     {
                         currentPortal++;
                         resetCurrentPortal();
                     }
                 }
                 
-                if (aliens[i].activeSelf == false && portals[currentPortal].activeSelf == true)
+                if (!aliens[i].activeSelf && portals[currentPortal].activeSelf)
                 {
                     aliens[i].SetActive(true);
-                    aliens[i].transform.localPosition = portals[currentPortal].transform.localPosition;
+                    aliens[i].transform.position = portals[currentPortal].transform.position;
+                    break;
                 }
             }
             currentPortal++;
@@ -44,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     private void resetCurrentPortal()
     {
-        if (currentPortal == 8)
+        if (currentPortal == portals.Length)
         {
             currentPortal = 0;
         }
