@@ -5,12 +5,12 @@ using UnityEngine;
 public class CollisionManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    Component lifeManager;
+    LifeManager lifeManager;
     void Start()
     {
         if (gameObject.tag != "Bullet")
         {
-            // Liée le component
+            lifeManager = (LifeManager)gameObject.GetComponent(typeof(LifeManager));
         }
     }
 
