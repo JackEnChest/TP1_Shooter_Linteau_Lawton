@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private float rotationSpeed;
 
     private float gravity = 30f;//9.81f;
-    private float jumpSpeed = 12f;//6f;
+    private float jumpSpeed = 20f;//6f;
     private float vecticalMovement = 0f;
 
     // Update is called once per frame
