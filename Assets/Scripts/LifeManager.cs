@@ -5,6 +5,8 @@ using UnityEngine;
 public class LifeManager : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    [SerializeField] private int lives;
     void Start()
     {
         
@@ -14,5 +16,18 @@ public class LifeManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void decreaseLives()
+    {
+        lives--;
+    }
+
+    private void checkIfDead()
+    {
+        if (lives == 0)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }

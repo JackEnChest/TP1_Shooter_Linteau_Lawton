@@ -29,7 +29,11 @@ public class CollisionManager : MonoBehaviour
 
         else
         {
-
+            if (other.tag == "Player" || other.tag == "Alien" || other.tag == "Bullet")
+            {
+                if (gameObject.tag == "Player" && gameObject.transform.position.y > 3) return;
+                lifeManager.decreaseLives();
+            }
         }
     }
 }
