@@ -2,15 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class ShootScript : MonoBehaviour
 {
     private GameObject[] bullets;
     [SerializeField] private string inputName;
     [SerializeField] private GameObject bulletStartPoint;
+    [SerializeField] private float recoil;
+    private float recoilTimer = 0;
     // Start is called before the first frame update
     void Start()
     {
-        bullets = GameObject.FindGameObjectsWithTag("Bullets");
+        bullets = GameObject.FindGameObjectsWithTag("Bullet");
         for (int i = 0; i < bullets.Length; i++)
         {
             bullets[i].SetActive(false);
@@ -20,8 +22,10 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton(inputName))
+        recoilTimer += Time.deltaTime;
+        if (Input.GetButton(inputName) && recoilTimer > recoil)
         {
+            recoilTimer = 0;
             bool bulletFound = false;
             for (int i = 0; i < bullets.Length; i++)
             {
