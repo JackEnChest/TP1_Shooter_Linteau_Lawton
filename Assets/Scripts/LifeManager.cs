@@ -21,6 +21,7 @@ public class LifeManager : MonoBehaviour
     public void decreaseLives()
     {
         lives--;
+        checkIfDead();
     }
 
     private void checkIfDead()
