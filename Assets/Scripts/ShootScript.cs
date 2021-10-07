@@ -22,13 +22,14 @@ public class NewBehaviourScript : MonoBehaviour
     {
         if (Input.GetButton(inputName))
         {
+            bool bulletFound = false;
             for (int i = 0; i < bullets.Length; i++)
             {
-                if (bullets[i].activeSelf)
+                if (!bullets[i].activeSelf && !bulletFound)
                 {
-                    bullets[i].transform.SetPositionAndRotation(bulletStartPoint.transform.position, this.transform.rotation);
-                    //Set velocity to set value
+                    bullets[i].transform.SetPositionAndRotation(bulletStartPoint.transform.position, bulletStartPoint.transform.rotation);
                     bullets[i].SetActive(true);
+                    bulletFound = true;
                 }
             }
         }
