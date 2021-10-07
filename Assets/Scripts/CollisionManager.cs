@@ -8,7 +8,7 @@ public class CollisionManager : MonoBehaviour
     LifeManager lifeManager;
     void Start()
     {
-        if (gameObject.tag != "Bullet" && gameObject.tag != "Portal")
+        if (gameObject.tag == "Alien" || gameObject.tag == "Player")
         {
             lifeManager = (LifeManager)gameObject.GetComponent(typeof(LifeManager));
         }
