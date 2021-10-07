@@ -29,7 +29,7 @@ public class CollisionManager : MonoBehaviour
 
         else
         {
-            if (other.tag == "Player" || other.tag == "Bullet")
+            if ((other.tag == "Player" || other.tag == "Bullet") && gameObject.tag != "Player")
             {
                 lifeManager.decreaseLives();
             }
