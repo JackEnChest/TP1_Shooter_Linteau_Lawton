@@ -68,10 +68,11 @@ public class GameManager : MonoBehaviour
     public void updateLives(int newLivesValue)
     {
         livesOfPlayer = newLivesValue;
+        sendLivesToHUD();
     }
 
     private void sendLivesToHUD()
     {
-
+        textLivesManager.changeLivesText(livesOfPlayer);
     }
 }

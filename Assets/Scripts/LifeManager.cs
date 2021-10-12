@@ -10,7 +10,7 @@ public class LifeManager : MonoBehaviour
     [SerializeField] private int lives;
     void Start()
     {
-        GameManager gameManager = (GameManager)GameObject.Find("GameManager").GetComponent(typeof(GameManager));
+        gameManager = (GameManager)GameObject.Find("GameManager").GetComponent(typeof(GameManager));
     }
 
     // Update is called once per frame
@@ -23,6 +23,10 @@ public class LifeManager : MonoBehaviour
     {
         lives--;
         checkIfDead();
+        if (gameObject.tag == "Player")
+        {
+            gameManager.updateLives(lives);
+        }
     }
 
     private void checkIfDead()
