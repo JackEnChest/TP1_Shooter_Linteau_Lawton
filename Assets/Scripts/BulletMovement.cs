@@ -15,6 +15,11 @@ public class BulletMovement : MonoBehaviour
 
     void OnEnable()
     {
-        rigidBody.velocity = transform.forward * speed;
+        rigidBody.velocity = transform.forward.normalized * speed;
+    }
+
+    void OnDisable()
+    {
+        rigidBody.velocity = Vector3.zero;
     }
 }

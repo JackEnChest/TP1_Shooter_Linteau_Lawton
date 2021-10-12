@@ -22,18 +22,22 @@ public class ShootScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        moveBullet();
+    }
+
+    private void moveBullet()
+    {
         recoilTimer += Time.deltaTime;
         if (Input.GetButton(inputName) && recoilTimer > recoil)
         {
             recoilTimer = 0;
-            bool bulletFound = false;
             for (int i = 0; i < bullets.Length; i++)
             {
-                if (!bullets[i].activeSelf && !bulletFound)
+                if (!bullets[i].activeSelf)
                 {
                     bullets[i].transform.SetPositionAndRotation(bulletStartPoint.transform.position, bulletStartPoint.transform.rotation);
                     bullets[i].SetActive(true);
-                    bulletFound = true;
+                    return;
                 }
             }
         }
