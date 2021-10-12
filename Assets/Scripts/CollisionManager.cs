@@ -25,14 +25,14 @@ public class CollisionManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (gameObject.tag == "Bullet") 
         {
             if (other.tag == "Portal")
             {
                 other.gameObject.SetActive(false);
             }
-
-            if (other.tag == "Alien")
+            else if (other.tag == "Alien")
             {
                 otherLifeManager = (LifeManager)other.gameObject.GetComponent(typeof(LifeManager));
                 otherLifeManager.decreaseLives();
@@ -50,8 +50,7 @@ public class CollisionManager : MonoBehaviour
                 if (gameObject.transform.position.y > 3) return;
                 lifeManager.decreaseLives();
             }
-
-            if (other.tag == "Token")
+            else if (other.tag == "Token")
             {
                 tokensManager = (TokensManager)other.gameObject.GetComponent(typeof(TokensManager));
                 tokensManager.tokenFilter();
