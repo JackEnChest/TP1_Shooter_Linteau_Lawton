@@ -8,11 +8,15 @@ public class GameManager : MonoBehaviour
     private GameObject[] aliens;
     private float spawnTime = 0f;
     private int currentPortal = 0;
+    private int livesOfPlayer = 5;
+    private TextManager textLivesManager;
+
     // Start is called before the first frame update
     void Start()
     {
         portals = GameObject.FindGameObjectsWithTag("Portal");
         aliens = GameObject.FindGameObjectsWithTag("Alien");
+        textLivesManager = (TextManager)GameObject.Find("TextLives").GetComponent(typeof(TextManager));
         for(int i = 0; i < aliens.Length; i++)
         {
             aliens[i].SetActive(false);
@@ -21,6 +25,19 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        spawningOfAliens();
+    }
+
+    private void resetCurrentPortal()
+    {
+        if (currentPortal == portals.Length)
+        {
+            currentPortal = 0;
+        }
+    }
+
+    private void spawningOfAliens()
     {
         if ((spawnTime += Time.deltaTime) >= 1)
         {
@@ -35,7 +52,7 @@ public class GameManager : MonoBehaviour
                         resetCurrentPortal();
                     }
                 }
-                
+
                 if (!aliens[i].activeSelf && portals[currentPortal].activeSelf)
                 {
                     aliens[i].SetActive(true);
@@ -48,11 +65,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void resetCurrentPortal()
+    public void updateLives(int newLivesValue)
     {
-        if (currentPortal == portals.Length)
-        {
-            currentPortal = 0;
-        }
+        livesOfPlayer = newLivesValue;
+    }
+
+    private void sendLivesToHUD()
+    {
+
     }
 }

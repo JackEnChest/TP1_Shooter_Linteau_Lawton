@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CollisionManager : MonoBehaviour
 {
     // Start is called before the first frame update
     LifeManager lifeManager;
+    
     void Start()
     {
         if (gameObject.tag == "Alien" || gameObject.tag == "Player")
