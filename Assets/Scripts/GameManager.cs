@@ -12,10 +12,11 @@ public class GameManager : MonoBehaviour
     private int currentPortal = 0;
     private int livesOfPlayer = 5;
     private int missiles = 0;
-    private int boostTimer = 0;
+    private float boostTimer = 0;
 
     private TextManager textLivesManager;
     private TextManager textMissilesManager;
+    private TextManager textBoostManager;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,7 @@ public class GameManager : MonoBehaviour
 
         textLivesManager = (TextManager)GameObject.Find("TextLives").GetComponent(typeof(TextManager));
         textMissilesManager = (TextManager)GameObject.Find("TextMissiles").GetComponent(typeof(TextManager));
+        textBoostManager = (TextManager)GameObject.Find("TextBoostTime").GetComponent(typeof(TextManager));
 
         for (int i = 0; i < tokens.Length; i++)
         {
@@ -42,6 +44,20 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         spawningOfAliens();
+
+        //Countdown for the boost shot
+        if (boostTimer > 0)
+        {
+            boostTimer -= Time.deltaTime;
+            int seconds = Mathf.FloorToInt(boostTimer);
+            textBoostManager.changeBoostTimeText(seconds);
+        }
+
+        else
+        {
+            textBoostManager.changeBoostTimeText(0);
+            boostTimer = 0;
+        }
     }
 
     public void updateLives(int newLivesValue)
@@ -71,6 +87,11 @@ public class GameManager : MonoBehaviour
     {
         missiles += 5;
         sendInfosToHUD();
+    }
+
+    public void addTimeToBoostShot()
+    {
+        boostTimer += 10;
     }
 
     private void resetCurrentPortal()

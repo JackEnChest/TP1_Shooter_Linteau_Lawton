@@ -33,7 +33,7 @@ public class TokensManager : MonoBehaviour
 
         else
         {
-
+            gameManager.addTimeToBoostShot();
         }
     }
 }
