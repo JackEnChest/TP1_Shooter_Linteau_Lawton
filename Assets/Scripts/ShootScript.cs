@@ -9,9 +9,11 @@ public class ShootScript : MonoBehaviour
     [SerializeField] private GameObject bulletStartPoint;
     [SerializeField] private float recoil;
     private float recoilTimer = 0;
+    private AudioSource gunAudioSource;
     // Start is called before the first frame update
     void Start()
     {
+        gunAudioSource = this.GetComponent<AudioSource>();
         bullets = GameObject.FindGameObjectsWithTag("Bullet");
         for (int i = 0; i < bullets.Length; i++)
         {
@@ -37,6 +39,7 @@ public class ShootScript : MonoBehaviour
                 {
                     bullets[i].transform.SetPositionAndRotation(bulletStartPoint.transform.position, bulletStartPoint.transform.rotation);
                     bullets[i].SetActive(true);
+                    gunAudioSource.PlayOneShot(SoundManager.Instance.shootBulletClip, 1f);
                     return;
                 }
             }
