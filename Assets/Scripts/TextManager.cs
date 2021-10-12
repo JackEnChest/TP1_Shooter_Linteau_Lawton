@@ -28,6 +28,11 @@ public class TextManager : MonoBehaviour
         {
             currentText.text = str + missiles.ToString();
         }
+
+        else
+        {
+            currentText.text = str + boostTime.ToString();
+        }
     }
 
     public void changeLivesText(int newliveValue)
@@ -38,5 +43,10 @@ public class TextManager : MonoBehaviour
     public void changeMissilesText(int newMissileValue)
     {
         missiles = newMissileValue;
+    }
+
+    public void changeBoostTimeText(int newBoostTime)
+    {
+        boostTime = newBoostTime;
     }
 }
