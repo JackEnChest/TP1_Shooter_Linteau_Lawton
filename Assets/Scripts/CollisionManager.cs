@@ -7,6 +7,7 @@ public class CollisionManager : MonoBehaviour
 {
     // Start is called before the first frame update
     LifeManager lifeManager;
+    LifeManager otherLifeManager;
     
     void Start()
     {
@@ -26,30 +27,30 @@ public class CollisionManager : MonoBehaviour
     {
         if (gameObject.tag == "Bullet") 
         {
-            gameObject.SetActive(false);
-        }
-
-        else if (gameObject.tag == "Portal" && other.tag == "Bullet")
-        {
-            gameObject.SetActive(false);
-            other.gameObject.SetActive(false);
-        }
-
-        else
-        {
-            if ((other.tag == "Player" || other.tag == "Bullet") && gameObject.tag != "Player")
+            if (other.tag == "Portal")
             {
-                if (other.tag == "Bullet")
-                {
-                    other.gameObject.SetActive(false);
-                }
-                lifeManager.decreaseLives();
+                other.gameObject.SetActive(false);
             }
 
             if (other.tag == "Alien")
             {
-                if (gameObject.tag == "Player" && gameObject.transform.position.y > 3) return;
-                lifeManager.decreaseLives();
+                otherLifeManager = (LifeManager)other.gameObject.GetComponent(typeof(LifeManager));
+                otherLifeManager.decreaseLives();
+            }
+            gameObject.SetActive(false);
+        }
+
+        else
+        {
+            if (gameObject.tag == "Player")
+            {
+                if (other.tag == "Alien")
+                {
+                    otherLifeManager = (LifeManager)other.gameObject.GetComponent(typeof(LifeManager));
+                    otherLifeManager.decreaseLives();
+                    if (gameObject.transform.position.y > 3) return;
+                    lifeManager.decreaseLives();
+                }
             }
         }
     }
