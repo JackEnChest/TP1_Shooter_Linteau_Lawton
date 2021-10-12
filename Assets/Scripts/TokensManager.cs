@@ -16,7 +16,10 @@ public class TokensManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (gameObject.activeSelf)
+        {
+            gameObject.transform.Rotate(0, 50 * Time.deltaTime, 0);
+        }
     }
 
     public void tokenFilter()
