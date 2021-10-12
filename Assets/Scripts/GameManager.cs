@@ -7,9 +7,12 @@ public class GameManager : MonoBehaviour
     private GameObject[] portals;
     private GameObject[] aliens;
     private GameObject[] tokens;
+
     private float spawnTime = 0f;
     private int currentPortal = 0;
     private int livesOfPlayer = 5;
+    private int missiles = 0;
+    private int boostTimer = 0;
     private TextManager textLivesManager;
 
     // Start is called before the first frame update
@@ -36,6 +39,33 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         spawningOfAliens();
+    }
+
+    public void updateLives(int newLivesValue)
+    {
+        livesOfPlayer = newLivesValue;
+        sendLivesToHUD();
+    }
+
+    public int getLivesOfPlayer()
+    {
+        return livesOfPlayer;
+    }
+
+    public void spawningOfTokens(Vector3 position)
+    {
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (!tokens[i].activeSelf)
+            {
+                int result = Random.Range(1, 100);
+                if (result == 1)
+                {
+                    tokens[i].SetActive(true);
+                    tokens[i].transform.position = new Vector3(position.x, position.y + 3, position.z);
+                }
+            }
+        }
     }
 
     private void resetCurrentPortal()
@@ -71,33 +101,6 @@ public class GameManager : MonoBehaviour
             }
             currentPortal++;
             resetCurrentPortal();
-        }
-    }
-
-    public void updateLives(int newLivesValue)
-    {
-        livesOfPlayer = newLivesValue;
-        sendLivesToHUD();
-    }
-
-    public int getLivesOfPlayer()
-    {
-        return livesOfPlayer;
-    }
-
-    public void spawningOfTokens(Vector3 position)
-    {
-        for (int i = 0; i < tokens.Length; i++)
-        {
-            if (!tokens[i].activeSelf)
-            {
-                int result = Random.Range(1, 100);
-                if (result == 1)
-                {
-                    tokens[i].SetActive(true);
-                    tokens[i].transform.position = new Vector3(position.x, position.y + 3, position.z);
-                }
-            }
         }
     }
 
