@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+  repulseForce: 100
 --- !u!54 &2219956529855203978
 Rigidbody:
   m_ObjectHideFlags: 0

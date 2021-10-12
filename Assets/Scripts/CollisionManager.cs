@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CollisionManager : MonoBehaviour
 {
     // Start is called before the first frame update
     LifeManager lifeManager;
+    
     void Start()
     {
-        if (gameObject.tag != "Bullet")
+        if (gameObject.tag == "Alien" || gameObject.tag == "Player")
         {
             lifeManager = (LifeManager)gameObject.GetComponent(typeof(LifeManager));
         }
@@ -27,10 +29,20 @@ public class CollisionManager : MonoBehaviour
             gameObject.SetActive(false);
         }
 
+        else if (gameObject.tag == "Portal" && other.tag == "Bullet")
+        {
+            gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
+        }
+
         else
         {
             if ((other.tag == "Player" || other.tag == "Bullet") && gameObject.tag != "Player")
             {
+                if (other.tag == "Bullet")
+                {
+                    other.gameObject.SetActive(false);
+                }
                 lifeManager.decreaseLives();
             }
 
