@@ -13,6 +13,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip playerHurt;
     [SerializeField] private AudioClip victory;
     [SerializeField] private AudioClip tokenPickup;
+    [SerializeField] private AudioClip alienDeath;
 
     public static SoundManager Instance { get { return instance; } }
 
@@ -23,6 +24,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip playerHurtClip { get { return playerHurt; } }
     public AudioClip victoryClip { get { return victory; } }
     public AudioClip tokenPickupClip { get { return tokenPickup; } }
+    public AudioClip alienDeathClip { get { return alienDeath; } }
     // Start is called before the first frame update
     void Start()
     {
