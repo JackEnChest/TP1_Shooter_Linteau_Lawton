@@ -641,7 +641,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 181866214}
-  m_LocalRotation: {x: 0.12066458, y: 0.000000019096756, z: -0.0000000023212632, w: 0.99269336}
+  m_LocalRotation: {x: 0.12066458, y: -0.000000019096758, z: 0.0000000023212634, w: 0.99269336}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1372,7 +1372,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282840810}
-  m_LocalRotation: {x: 0.1206646, y: 0.00000001910383, z: -0.0000000023204012, w: 0.99269336}
+  m_LocalRotation: {x: 0.1206646, y: -0.000000019103826, z: 0.000000002320344, w: 0.99269336}
   m_LocalPosition: {x: 1.724, y: 19.15, z: -69.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1541,7 +1541,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 298999039}
-  m_LocalRotation: {x: 0.13870122, y: -0.000000017040069, z: 0.0000000023865456, w: 0.99033433}
+  m_LocalRotation: {x: 0.13870122, y: 0.000000017040069, z: -0.0000000023865456, w: 0.99033433}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3920,9 +3920,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputName: Fire1
   bulletStartPoint: {fileID: 7092183}
-  bulletRecoil: 0
-  missileRecoil: 0
-  scatterRecoil: 0
+  bulletRecoil: 0.5
+  missileRecoil: 1
+  scatterRecoil: 0.5
 --- !u!82 &1032903430
 AudioSource:
   m_ObjectHideFlags: 0
