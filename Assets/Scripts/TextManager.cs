@@ -7,6 +7,8 @@ public class TextManager : MonoBehaviour
 {
     private string strLives = ": ";
     private int lives = 5;
+    private int missiles = 0;
+    private int boostTime = 0;
     [SerializeField] Text currentText;
     // Start is called before the first frame update
     void Start()

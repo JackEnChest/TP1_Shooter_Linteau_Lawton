@@ -7,6 +7,7 @@ TagManager:
   - Alien
   - Portal
   - Bullet
+  - Token
   layers:
   - Default
   - TransparentFX
