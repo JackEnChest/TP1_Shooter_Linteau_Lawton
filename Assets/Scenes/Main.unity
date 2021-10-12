@@ -2051,8 +2051,9 @@ GameObject:
   - component: {fileID: 467141840}
   - component: {fileID: 467141842}
   - component: {fileID: 467141841}
+  - component: {fileID: 467141843}
   m_Layer: 5
-  m_Name: Text
+  m_Name: TextMissiles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2119,6 +2120,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 467141839}
   m_CullTransparentMesh: 1
+--- !u!114 &467141843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 467141839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e68022f15fa914eb0aeb24ab86e574, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentText: {fileID: 467141841}
 --- !u!1 &474761032 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 105092, guid: 941d6224549424c91b1cf112b44ec0cb,
@@ -4196,6 +4210,7 @@ MonoBehaviour:
   playerHurt: {fileID: 8300000, guid: a16b9017a7a3b744fbd8ab26d0a816c3, type: 3}
   victory: {fileID: 8300000, guid: b4d3cb20c25bae54e999c556d56876b8, type: 3}
   tokenPickup: {fileID: 8300000, guid: 55bc10006917fbe46a89f70a93cd4e1f, type: 3}
+  tokenAppear: {fileID: 0}
   alienDeath: {fileID: 8300000, guid: 8f252cb39a2a2da44aefd3d09599af53, type: 3}
 --- !u!4 &1214639479
 Transform:

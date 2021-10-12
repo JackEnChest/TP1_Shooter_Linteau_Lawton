@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class TextManager : MonoBehaviour
 {
-    private string strLives = ": ";
+    private string str = ": ";
     private int lives = 5;
     private int missiles = 0;
     private int boostTime = 0;
@@ -19,11 +19,24 @@ public class TextManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentText.text = strLives + lives.ToString();
+        if (gameObject.name == "TextLives")
+        {
+            currentText.text = str + lives.ToString();
+        }
+
+        else if (gameObject.name == "TextMissiles")
+        {
+            currentText.text = str + missiles.ToString();
+        }
     }
 
     public void changeLivesText(int newliveValue)
     {
         lives = newliveValue;
+    }
+
+    public void changeMissilesText(int newMissileValue)
+    {
+        missiles = newMissileValue;
     }
 }
