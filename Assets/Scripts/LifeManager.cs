@@ -22,11 +22,19 @@ public class LifeManager : MonoBehaviour
     public void decreaseLives()
     {
         lives--;
+
+        if (gameObject.tag == "Alien")
+        {
+            gameManager.spawningOfTokens(gameObject.transform.position);
+        }
+
         checkIfDead();
         if (gameObject.tag == "Player")
         {
             gameManager.updateLives(lives);
         }
+        
+        
     }
 
     private void checkIfDead()

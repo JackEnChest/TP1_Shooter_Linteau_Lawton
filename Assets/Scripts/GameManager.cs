@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
                 if (result == 1)
                 {
                     tokens[i].SetActive(true);
-                    tokens[i].transform.position = position;
+                    tokens[i].transform.position = new Vector3(position.x, position.y + 3, position.z);
                 }
             }
         }
