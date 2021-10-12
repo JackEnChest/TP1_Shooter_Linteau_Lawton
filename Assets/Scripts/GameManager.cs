@@ -96,6 +96,8 @@ public class GameManager : MonoBehaviour
                 {
                     aliens[i].SetActive(true);
                     aliens[i].transform.position = portals[currentPortal].transform.position;
+                    LifeManager lifeManager = (LifeManager)aliens[i].GetComponent(typeof(LifeManager));
+                    lifeManager.increaseLives();
                     break;
                 }
             }

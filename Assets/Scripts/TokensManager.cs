@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class TokensManager : MonoBehaviour
 {
-
-    GameManager gameManager;
+    LifeManager playerLifeManager;
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = (GameManager)GameObject.Find("GameManager").GetComponent(typeof(GameManager));
+        playerLifeManager = (LifeManager)GameObject.FindGameObjectWithTag("Player").GetComponent(typeof(LifeManager));
     }
 
     // Update is called once per frame
@@ -22,7 +21,7 @@ public class TokensManager : MonoBehaviour
     {
         if (gameObject.transform.parent.name == "HealTokens")
         {
-            gameManager.updateLives(gameManager.getLivesOfPlayer() + 1);
+            playerLifeManager.increaseLives();
         }
 
         else if (gameObject.transform.parent.name == "MissileTokens")

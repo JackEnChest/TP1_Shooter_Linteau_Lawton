@@ -33,8 +33,15 @@ public class LifeManager : MonoBehaviour
         {
             gameManager.updateLives(lives);
         }
-        
-        
+    }
+
+    public void increaseLives()
+    {
+        lives++;
+        if (gameObject.tag == "Player")
+        {
+            gameManager.updateLives(lives);
+        }
     }
 
     private void checkIfDead()
