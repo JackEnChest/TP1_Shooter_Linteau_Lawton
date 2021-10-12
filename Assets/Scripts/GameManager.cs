@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
     private int livesOfPlayer = 5;
     private int missiles = 0;
     private int boostTimer = 0;
+
     private TextManager textLivesManager;
+    private TextManager textMissilesManager;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour
         tokens = GameObject.FindGameObjectsWithTag("Token");
 
         textLivesManager = (TextManager)GameObject.Find("TextLives").GetComponent(typeof(TextManager));
+        textMissilesManager = (TextManager)GameObject.Find("TextMissiles").GetComponent(typeof(TextManager));
 
         for (int i = 0; i < tokens.Length; i++)
         {
@@ -44,12 +47,7 @@ public class GameManager : MonoBehaviour
     public void updateLives(int newLivesValue)
     {
         livesOfPlayer = newLivesValue;
-        sendLivesToHUD();
-    }
-
-    public int getLivesOfPlayer()
-    {
-        return livesOfPlayer;
+        sendInfosToHUD();
     }
 
     public void spawningOfTokens(Vector3 position)
@@ -63,9 +61,16 @@ public class GameManager : MonoBehaviour
                 {
                     tokens[i].SetActive(true);
                     tokens[i].transform.position = new Vector3(position.x, position.y + 3, position.z);
+                    return;
                 }
             }
         }
+    }
+
+    public void addMissiles()
+    {
+        missiles += 5;
+        sendInfosToHUD();
     }
 
     private void resetCurrentPortal()
@@ -106,8 +111,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void sendLivesToHUD()
+    private void sendInfosToHUD()
     {
         textLivesManager.changeLivesText(livesOfPlayer);
+        textMissilesManager.changeMissilesText(missiles);
     }
 }
