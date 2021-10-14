@@ -1,24 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LifeManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    GameManager gameManager;
-
     [SerializeField] private int lives;
+    private GameManager gameManager;
     private AudioSource gameObjectAudioSource = null;
+
+    // Start is called before the first frame update
     void Start()
     {
-        gameManager = (GameManager)GameObject.Find("GameManager").GetComponent(typeof(GameManager));
+        gameManager = FindObjectOfType<GameManager>();
         gameObjectAudioSource = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void decreaseLives()

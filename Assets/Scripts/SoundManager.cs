@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -27,6 +25,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip tokenPickupClip { get { return tokenPickup; } }
     public AudioClip tokenAppearClip { get { return tokenAppear; } }
     public AudioClip alienDeathClip { get { return alienDeath; } }
+
     // Start is called before the first frame update
     void Start()
     {
