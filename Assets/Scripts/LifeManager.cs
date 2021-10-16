@@ -32,10 +32,6 @@ public class LifeManager : MonoBehaviour
         {
             gameManager.updateLives(lives);
         }
-        else if (gameObject.tag == "Portal")
-        {
-            gameManager.updateLives(lives);
-        }
     }
 
     public void increaseLives(int amount)

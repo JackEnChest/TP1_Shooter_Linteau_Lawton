@@ -34,12 +34,12 @@ public class TokensManager : MonoBehaviour
 
     public void tokenFilter()
     {
-        if (gameObject.transform.parent.name == "HealTokens")
+        if (transform.parent.parent.name == "HealTokens")
         {
             playerLifeManager.increaseLives(playerLivesPerToken);
         }
 
-        else if (gameObject.transform.parent.name == "MissileTokens")
+        else if (transform.parent.parent.name == "MissileTokens")
         {
             gameManager.addMissiles(missilesPerToken);
         }
