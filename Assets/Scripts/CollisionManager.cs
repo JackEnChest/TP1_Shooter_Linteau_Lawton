@@ -26,7 +26,7 @@ public class CollisionManager : MonoBehaviour
             {
                 other.gameObject.GetComponent<LifeManager>().decreaseLives(); ;
             }
-            if(other.gameObject.tag != "Bullet") gameObject.SetActive(false);
+            if(other.gameObject.tag != "Bullet" && other.gameObject.tag != "Token") gameObject.SetActive(false);
         }
         else if (gameObject.tag == "Player")
         {
