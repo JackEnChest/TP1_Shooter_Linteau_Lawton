@@ -8,6 +8,7 @@ TagManager:
   - Portal
   - Bullet
   - Token
+  - Missile
   layers:
   - Default
   - TransparentFX

@@ -1,9 +1,11 @@
 using UnityEngine;
 
-public class BulletMovement : MonoBehaviour
+public class ProjectileMovement : MonoBehaviour
 {
     [SerializeField] private int speed;
+    [SerializeField] private float timeToDeath;
     private Rigidbody rigidBody;
+    private float deathTimer;
 
     void Awake()
     {
@@ -12,7 +14,14 @@ public class BulletMovement : MonoBehaviour
 
     void OnEnable()
     {
+        deathTimer = timeToDeath;
         rigidBody.velocity = transform.forward.normalized * speed;
+    }
+
+    private void Update()
+    {
+        deathTimer -= Time.deltaTime;
+        if (deathTimer < 0) gameObject.SetActive(false);
     }
 
     void OnDisable()

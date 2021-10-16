@@ -2,13 +2,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private int playerInitialLives;
-    [SerializeField] private int missilesPerToken;
-    [SerializeField] private float shootBoostDurationPerToken;
-
     private GameObject[] portals;
     private GameObject[] aliens;
     private GameObject[] tokens;
+    private LifeManager playerLifeManager;
     private ShootScript playerShootScript;
 
     private float spawnTime = 0f;
@@ -38,13 +35,15 @@ public class GameManager : MonoBehaviour
             tokens[i].SetActive(false);
         }
 
+        playerLifeManager = GameObject.FindGameObjectWithTag("Player").GetComponent<LifeManager>();
         playerShootScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ShootScript>();
 
         textLivesManager = GameObject.Find("TextLives").GetComponent<TextManager>();
         textMissilesManager = GameObject.Find("TextMissiles").GetComponent<TextManager>();
         textBoostManager = GameObject.Find("TextBoostTime").GetComponent<TextManager>();
 
-        livesOfPlayer = playerInitialLives;
+        livesOfPlayer = playerLifeManager.getLives();
+        sendInfosToHUD();
     }
 
     // Update is called once per frame
@@ -58,11 +57,11 @@ public class GameManager : MonoBehaviour
             boostTimer -= Time.deltaTime;
             playerShootScript.setScatterTimer(boostTimer);
             int seconds = Mathf.FloorToInt(boostTimer);
-            textBoostManager.changeBoostTimeText(seconds);
+            textBoostManager.setBoostTimeText(seconds);
         }
         else
         {
-            textBoostManager.changeBoostTimeText(0);
+            textBoostManager.setBoostTimeText(0);
             boostTimer = 0;
         }
     }
@@ -96,16 +95,16 @@ public class GameManager : MonoBehaviour
         sendInfosToHUD();
     }
 
-    public void addMissiles()
+    public void addMissiles(int amount)
     {
-        missiles += missilesPerToken;
+        missiles += amount;
         playerShootScript.setMissilesAmmo(missiles);
         sendInfosToHUD();
     }
 
-    public void addTimeToBoostShot()
+    public void addTimeToBoostShot(float duration)
     {
-        boostTimer += shootBoostDurationPerToken;
+        boostTimer += duration;
     }
 
     private void resetCurrentPortal()
@@ -136,8 +135,6 @@ public class GameManager : MonoBehaviour
                 {
                     aliens[i].SetActive(true);
                     aliens[i].transform.position = portals[currentPortal].transform.position;
-                    LifeManager lifeManager = (LifeManager)aliens[i].GetComponent(typeof(LifeManager));
-                    lifeManager.increaseLives();
                     break;
                 }
             }
@@ -148,7 +145,7 @@ public class GameManager : MonoBehaviour
 
     private void sendInfosToHUD()
     {
-        textLivesManager.changeLivesText(livesOfPlayer);
-        textMissilesManager.changeMissilesText(missiles);
+        textLivesManager.setLivesText(livesOfPlayer);
+        textMissilesManager.setMissilesText(missiles);
     }
 }

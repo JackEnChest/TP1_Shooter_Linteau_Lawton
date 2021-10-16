@@ -6,9 +6,9 @@ public class TextManager : MonoBehaviour
     [SerializeField] private Text currentText;
 
     private string str = ": ";
-    private int lives = 5;
-    private int missiles = 0;
-    private int boostTime = 0;
+    private int lives;
+    private int missiles;
+    private int boostTime;
 
     // Update is called once per frame
     void Update()
@@ -27,17 +27,17 @@ public class TextManager : MonoBehaviour
         }
     }
 
-    public void changeLivesText(int newliveValue)
+    public void setLivesText(int newliveValue)
     {
         lives = newliveValue;
     }
 
-    public void changeMissilesText(int newMissileValue)
+    public void setMissilesText(int newMissileValue)
     {
         missiles = newMissileValue;
     }
 
-    public void changeBoostTimeText(int newBoostTime)
+    public void setBoostTimeText(int newBoostTime)
     {
         boostTime = newBoostTime;
     }

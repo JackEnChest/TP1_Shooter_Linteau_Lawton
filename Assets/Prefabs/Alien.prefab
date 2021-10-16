@@ -1136,7 +1136,7 @@ GameObject:
   - component: {fileID: 2074386270}
   - component: {fileID: 2074386271}
   - component: {fileID: 275222076635707917}
-  - component: {fileID: 1929237036359491203}
+  - component: {fileID: 4511802223731158952}
   - component: {fileID: 51747184892883809}
   m_Layer: 0
   m_Name: Alien
@@ -1195,7 +1195,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b12d068ef6fb8f046b3878838216defa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
 --- !u!114 &275222076635707917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1208,8 +1207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e3189c2e6913c84494966082834af5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 0
---- !u!136 &1929237036359491203
+  initialLives: 1
+--- !u!136 &4511802223731158952
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
