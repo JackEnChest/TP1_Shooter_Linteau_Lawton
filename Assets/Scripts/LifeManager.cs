@@ -12,7 +12,7 @@ public class LifeManager : MonoBehaviour
     {
         lives = initialLives;
         gameManager = FindObjectOfType<GameManager>();
-        gameObjectAudioSource = GetComponent<AudioSource>();
+        gameObjectAudioSource = transform.parent.GetComponent<AudioSource>();
     }
 
     private void OnEnable()
