@@ -12,9 +12,9 @@ public class TokensManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         playerLifeManager = GameObject.FindGameObjectWithTag("Player").GetComponent<LifeManager>();
         gameManager = FindObjectOfType<GameManager>();
+        audioSource = transform.parent.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
