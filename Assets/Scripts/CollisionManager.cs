@@ -20,11 +20,11 @@ public class CollisionManager : MonoBehaviour
         {
             if (other.tag == "Portal")
             {
-                other.gameObject.SetActive(false);
+                other.gameObject.GetComponent<LifeManager>().decreaseLives(1);
             }
             else if (other.tag == "Alien")
             {
-                other.gameObject.GetComponent<LifeManager>().decreaseLives();
+                other.gameObject.GetComponent<LifeManager>().decreaseLives(1);
             }
             if(other.gameObject.tag != "Bullet" && other.gameObject.tag != "Missile" && other.gameObject.tag != "Token") gameObject.SetActive(false);
         }
@@ -32,8 +32,8 @@ public class CollisionManager : MonoBehaviour
         {
             if (other.tag == "Alien")
             {
-                other.gameObject.GetComponent<LifeManager>().decreaseLives();
-                if (gameObject.transform.position.y < 3) lifeManager.decreaseLives();
+                other.gameObject.GetComponent<LifeManager>().decreaseLives(1);
+                if (gameObject.transform.position.y < 3) lifeManager.decreaseLives(1);
             }
             else if (other.tag == "Token")
             {

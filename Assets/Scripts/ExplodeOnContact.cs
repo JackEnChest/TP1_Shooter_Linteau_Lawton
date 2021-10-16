@@ -1,35 +1,13 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ExplodeOnContact : MonoBehaviour
 {
-
-    private List<Collider> killList;
-
-    private void OnEnable()
-    {
-        killList = new List<Collider>();
-    }
+    [SerializeField] private int damage;
+    [SerializeField] private int explosionRadius;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Alien")
-        {
-            killList.Add(other);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Alien")
-        {
-            killList.Remove(other);
-        }
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag != "Bullet" && collision.gameObject.tag != "Token")
+        if(other.gameObject.tag != "Bullet" && other.gameObject.tag != "Token" && other.gameObject.tag != "Player")
         {
             explode();
         }
@@ -37,7 +15,13 @@ public class ExplodeOnContact : MonoBehaviour
 
     private void explode()
     {
-        killList.ForEach(collider => { collider.gameObject.GetComponent<LifeManager>().decreaseLives(); });
+        foreach(Collider hit in Physics.OverlapSphere(transform.position, explosionRadius))
+        {
+            if(hit.gameObject.tag == "Alien" || hit.gameObject.tag == "Portal")
+            {
+                hit.gameObject.GetComponent<LifeManager>().decreaseLives(damage);
+            }
+        }
         gameObject.SetActive(false);
     }
 }

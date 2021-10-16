@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class TokensManager : MonoBehaviour
 {
+    [SerializeField] private int playerLivesPerToken;
+    [SerializeField] private int missilesPerToken;
+    [SerializeField] private float shootBoostDurationPerToken;
     private LifeManager playerLifeManager;
     private GameManager gameManager;
     private AudioSource audioSource;
@@ -33,17 +36,17 @@ public class TokensManager : MonoBehaviour
     {
         if (gameObject.transform.parent.name == "HealTokens")
         {
-            playerLifeManager.increaseLives();
+            playerLifeManager.increaseLives(playerLivesPerToken);
         }
 
         else if (gameObject.transform.parent.name == "MissileTokens")
         {
-            gameManager.addMissiles();
+            gameManager.addMissiles(missilesPerToken);
         }
 
         else
         {
-            gameManager.addTimeToBoostShot();
+            gameManager.addTimeToBoostShot(shootBoostDurationPerToken);
         }
         audioSource.PlayOneShot(SoundManager.Instance.tokenPickupClip, 1f);
         gameObject.SetActive(false); // Sound doesn't have time to play
