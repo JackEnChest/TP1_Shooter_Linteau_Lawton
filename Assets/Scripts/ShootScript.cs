@@ -1,110 +1,126 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShootScript : MonoBehaviour
 {
+
     enum ProjectileType
     {
         Normal,
-        Missile,
-        Scatter
+        Missile
     }
 
-    private GameObject[] projectiles;
     [SerializeField] private string inputName;
-    [SerializeField] private GameObject bulletStartPoint;
+    [SerializeField] private string missileInputName;
+    [SerializeField] private Transform bulletStartPoint;
     [SerializeField] private float bulletRecoil;
-    [SerializeField] private float missileRecoil;
-    [SerializeField] private float scatterRecoil;
-    private float trueRecoil;
-    private int amountOfBullets = 12;
-    private int amountOfMissiles = 6;
-    private float recoilTimer = 0;
-    private ProjectileType currentProjectileType = ProjectileType.Normal;
+
+    private Transform[] normalBullets;
+    private Transform[] missiles;
     private AudioSource gunAudioSource;
+    private GameManager gameManager;
+
+    private float recoilTimer = 0;
+    private float scatterTimer = 0;
+    private int missileAmmo = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        trueRecoil = bulletRecoil;
+        normalBullets = GameObject.Find("NormalBullets").GetComponentsInChildren<Transform>(true);
+        missiles = GameObject.Find("Missiles").GetComponentsInChildren<Transform>(true);
         gunAudioSource = GetComponent<AudioSource>();
-        projectiles = GameObject.FindGameObjectsWithTag("Bullet");
-        for (int i = 0; i < projectiles.Length; i++)
-        {
-            projectiles[i].SetActive(false);
-        }
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        moveBullet();
+        if (recoilTimer < bulletRecoil) recoilTimer += Time.deltaTime;
+        if (recoilTimer > bulletRecoil) manageShooting();
     }
 
-    private void moveBullet()
+    public void setMissilesAmmo(int ammo)
     {
-        recoilTimer += Time.deltaTime;
-        if (Input.GetButton(inputName) && recoilTimer > trueRecoil)
+        missileAmmo = ammo;
+    }
+
+    public void setScatterTimer(float duration)
+    {
+        scatterTimer = duration;
+    }
+
+    private void manageShooting()
+    {
+        if (Input.GetButton(missileInputName) && missileAmmo > 0)
         {
             recoilTimer = 0;
-            if (currentProjectileType == ProjectileType.Normal)
-            {
-                GameObject bullet = getInactiveProjectile(ProjectileType.Normal);
-                bullet.transform.SetPositionAndRotation(bulletStartPoint.transform.position, bulletStartPoint.transform.rotation);
-                bullet.SetActive(true);
-                gunAudioSource.PlayOneShot(SoundManager.Instance.shootBulletClip, 1f);
-                return;
-            }
-            if (currentProjectileType == ProjectileType.Missile)
-            {
-                GameObject bullet = getInactiveProjectile(ProjectileType.Missile);
-                bullet.transform.SetPositionAndRotation(bulletStartPoint.transform.position, bulletStartPoint.transform.rotation);
-                bullet.SetActive(true);
-                gunAudioSource.PlayOneShot(SoundManager.Instance.shootMissileClip, 1f);
-                return;
-            }
-            if (currentProjectileType == ProjectileType.Scatter)
-            {
-                GameObject bullet1 = getInactiveProjectile(ProjectileType.Scatter);
-                bullet1.transform.SetPositionAndRotation(bulletStartPoint.transform.position, bulletStartPoint.transform.rotation);
-                bullet1.SetActive(true);
-                gunAudioSource.PlayOneShot(SoundManager.Instance.shootScatterClip, 1f);
-
-                GameObject bullet2 = getInactiveProjectile(ProjectileType.Scatter);
-                bullet2.transform.SetPositionAndRotation(bulletStartPoint.transform.position, bulletStartPoint.transform.rotation * Quaternion.Euler(30, 0, 0));
-                bullet2.SetActive(true);
-                gunAudioSource.PlayOneShot(SoundManager.Instance.shootScatterClip, 1f);
-
-                GameObject bullet3 = getInactiveProjectile(ProjectileType.Scatter);
-                bullet3.transform.SetPositionAndRotation(bulletStartPoint.transform.position, bulletStartPoint.transform.rotation * Quaternion.Euler(0, 0, 30));
-                bullet3.SetActive(true);
-                gunAudioSource.PlayOneShot(SoundManager.Instance.shootScatterClip, 1f);
-                return;
-            }
+            gameManager.useMissile();
+            missileAmmo--;
+            fireMissile();
+        }
+        else if (Input.GetButton(inputName))
+        {
+            recoilTimer = 0;
+            fireBullet();
         }
     }
 
-    private GameObject getInactiveProjectile(ProjectileType type)
+    private void fireMissile()
     {
-        GameObject projectile = null;
+        Transform bullet = getInactiveProjectile(ProjectileType.Missile);
+        bullet.SetPositionAndRotation(bulletStartPoint.position, bulletStartPoint.rotation);
+        bullet.gameObject.SetActive(true);
+        gunAudioSource.PlayOneShot(SoundManager.Instance.shootMissileClip, 1f);
+    }
+
+    private void fireBullet()
+    {
+        if (scatterTimer > 0) //Shoot a scatter shot if the timer is on
+        {
+            Transform bullet1 = getInactiveProjectile(ProjectileType.Normal);
+            bullet1.SetPositionAndRotation(bulletStartPoint.position, bulletStartPoint.rotation);
+            bullet1.gameObject.SetActive(true);
+
+            Transform bullet2 = getInactiveProjectile(ProjectileType.Normal);
+            bullet2.SetPositionAndRotation(bulletStartPoint.position, bulletStartPoint.rotation * Quaternion.Euler(0, 30, 0));
+            bullet2.gameObject.SetActive(true);
+
+            Transform bullet3 = getInactiveProjectile(ProjectileType.Normal);
+            bullet3.SetPositionAndRotation(bulletStartPoint.position, bulletStartPoint.rotation * Quaternion.Euler(0,-30,0));
+            bullet3.gameObject.SetActive(true);
+
+            gunAudioSource.PlayOneShot(SoundManager.Instance.shootScatterClip, 1f);
+        }
+        else //Shoot a normal bullet
+        {
+            Transform bullet = getInactiveProjectile(ProjectileType.Normal);
+            bullet.SetPositionAndRotation(bulletStartPoint.position, bulletStartPoint.rotation);
+            bullet.gameObject.SetActive(true);
+            gunAudioSource.PlayOneShot(SoundManager.Instance.shootBulletClip, 1f);
+        }
+    }
+
+    private Transform getInactiveProjectile(ProjectileType type)
+    {
+        Transform projectile = null;
         switch (type)
         {
             case ProjectileType.Missile:
-                for (int i = amountOfBullets - 1; i < amountOfBullets + amountOfMissiles; i++)
+                for (int i = 1; i < missiles.Length; i++)
                 {
-                    if (!projectiles[i].activeSelf)
+                    if (!missiles[i].gameObject.activeSelf)
                     {
-                        projectile = projectiles[i];
+                        projectile = missiles[i];
                     }
                 }
                 break;
 
             default:
-                for (int i = 0; i < amountOfBullets; i++)
+                for (int i = 1; i < normalBullets.Length; i++)
                 {
-                    if (!projectiles[i].activeSelf)
+                    if (!normalBullets[i].gameObject.activeSelf)
                     {
-                        projectile = projectiles[i];
+                        projectile = normalBullets[i];
                     }
                 }
                 break;

@@ -1,31 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CollisionManager : MonoBehaviour
 {
+    private LifeManager lifeManager;
+
     // Start is called before the first frame update
-    LifeManager lifeManager;
-    LifeManager otherLifeManager;
-    TokensManager tokensManager;
-    
     void Start()
     {
-        if (gameObject.tag == "Alien" || gameObject.tag == "Player")
+        if (gameObject.tag == "Player")
         {
-            lifeManager = (LifeManager)gameObject.GetComponent(typeof(LifeManager));
+            lifeManager = GetComponent<LifeManager>();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        // Since the Script is only on Bullets and Players, we only need to mind those cases.
         if (gameObject.tag == "Bullet") 
         {
             if (other.tag == "Portal")
@@ -34,29 +24,21 @@ public class CollisionManager : MonoBehaviour
             }
             else if (other.tag == "Alien")
             {
-                otherLifeManager = (LifeManager)other.gameObject.GetComponent(typeof(LifeManager));
-                otherLifeManager.decreaseLives();
+                other.gameObject.GetComponent<LifeManager>().decreaseLives(); ;
             }
-            gameObject.SetActive(false);
+            if(other.gameObject.tag != "Bullet") gameObject.SetActive(false);
         }
-
-        
-        if (gameObject.tag == "Player")
+        else if (gameObject.tag == "Player")
         {
             if (other.tag == "Alien")
             {
-                otherLifeManager = (LifeManager)other.gameObject.GetComponent(typeof(LifeManager));
-                otherLifeManager.decreaseLives();
-                if (gameObject.transform.position.y > 3) return;
-                lifeManager.decreaseLives();
+                other.gameObject.GetComponent<LifeManager>().decreaseLives();
+                if (gameObject.transform.position.y < 3) lifeManager.decreaseLives();
             }
             else if (other.tag == "Token")
             {
-                tokensManager = (TokensManager)other.gameObject.GetComponent(typeof(TokensManager));
-                tokensManager.tokenFilter();
-                other.gameObject.SetActive(false);
+                other.gameObject.GetComponent<TokensManager>().tokenFilter();
             }
         }
-        
     }
 }

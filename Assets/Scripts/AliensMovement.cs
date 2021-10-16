@@ -1,29 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AliensMovement : MonoBehaviour
 {
-    private GameObject spaceMarine;
-    [SerializeField] float speed;
+    private Transform player;
     private NavMeshAgent navMeshAgent;
+
     // Start is called before the first frame update
     void Start()
     {
-        spaceMarine = GameObject.Find("SpaceMarine");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    // Update is called once per frame
-    void Update()
+    // LateUpdate is called once per frame
+    void LateUpdate()
     {
         if (gameObject.activeSelf)
         {
-            if (navMeshAgent != null)
-            {
-                navMeshAgent.destination = spaceMarine.transform.position;
-            }
+            if (navMeshAgent) navMeshAgent.destination = player.position;
         }
     }
 }

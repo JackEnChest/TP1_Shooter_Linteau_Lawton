@@ -1,16 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private int playerInitialLives;
+    [SerializeField] private int missilesPerToken;
+    [SerializeField] private float shootBoostDurationPerToken;
+
     private GameObject[] portals;
     private GameObject[] aliens;
     private GameObject[] tokens;
+    private ShootScript playerShootScript;
 
     private float spawnTime = 0f;
     private int currentPortal = 0;
-    private int livesOfPlayer = 5;
+    private int livesOfPlayer;
     private int missiles = 0;
     private float boostTimer = 0;
 
@@ -22,22 +25,26 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         portals = GameObject.FindGameObjectsWithTag("Portal");
+
         aliens = GameObject.FindGameObjectsWithTag("Alien");
+        for (int i = 0; i < aliens.Length; i++)
+        {
+            aliens[i].SetActive(false);
+        }
+
         tokens = GameObject.FindGameObjectsWithTag("Token");
-
-        textLivesManager = (TextManager)GameObject.Find("TextLives").GetComponent(typeof(TextManager));
-        textMissilesManager = (TextManager)GameObject.Find("TextMissiles").GetComponent(typeof(TextManager));
-        textBoostManager = (TextManager)GameObject.Find("TextBoostTime").GetComponent(typeof(TextManager));
-
         for (int i = 0; i < tokens.Length; i++)
         {
             tokens[i].SetActive(false);
         }
 
-        for(int i = 0; i < aliens.Length; i++)
-        {
-            aliens[i].SetActive(false);
-        }
+        playerShootScript = GameObject.FindGameObjectWithTag("Player").GetComponent<ShootScript>();
+
+        textLivesManager = GameObject.Find("TextLives").GetComponent<TextManager>();
+        textMissilesManager = GameObject.Find("TextMissiles").GetComponent<TextManager>();
+        textBoostManager = GameObject.Find("TextBoostTime").GetComponent<TextManager>();
+
+        livesOfPlayer = playerInitialLives;
     }
 
     // Update is called once per frame
@@ -49,10 +56,10 @@ public class GameManager : MonoBehaviour
         if (boostTimer > 0)
         {
             boostTimer -= Time.deltaTime;
+            playerShootScript.setScatterTimer(boostTimer);
             int seconds = Mathf.FloorToInt(boostTimer);
             textBoostManager.changeBoostTimeText(seconds);
         }
-
         else
         {
             textBoostManager.changeBoostTimeText(0);
@@ -76,22 +83,29 @@ public class GameManager : MonoBehaviour
                 if (result == 1)
                 {
                     tokens[i].SetActive(true);
-                    tokens[i].transform.position = new Vector3(position.x, position.y + 3, position.z);
-                    return;
+                    tokens[i].GetComponent<TokensManager>().spawn(position);
+                    break;
                 }
             }
         }
     }
 
+    public void useMissile()
+    {
+        missiles--;
+        sendInfosToHUD();
+    }
+
     public void addMissiles()
     {
-        missiles += 5;
+        missiles += missilesPerToken;
+        playerShootScript.setMissilesAmmo(missiles);
         sendInfosToHUD();
     }
 
     public void addTimeToBoostShot()
     {
-        boostTimer += 10;
+        boostTimer += shootBoostDurationPerToken;
     }
 
     private void resetCurrentPortal()
