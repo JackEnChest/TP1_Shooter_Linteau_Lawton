@@ -24,9 +24,9 @@ public class CollisionManager : MonoBehaviour
             }
             else if (other.tag == "Alien")
             {
-                other.gameObject.GetComponent<LifeManager>().decreaseLives(); ;
+                other.gameObject.GetComponent<LifeManager>().decreaseLives();
             }
-            if(other.gameObject.tag != "Bullet" && other.gameObject.tag != "Token") gameObject.SetActive(false);
+            if(other.gameObject.tag != "Bullet" && other.gameObject.tag != "Missile" && other.gameObject.tag != "Token") gameObject.SetActive(false);
         }
         else if (gameObject.tag == "Player")
         {

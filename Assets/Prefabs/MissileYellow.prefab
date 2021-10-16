@@ -9,17 +9,18 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3575463322957919256}
-  - component: {fileID: 3481054657789116328}
+  - component: {fileID: 642410047714400545}
+  - component: {fileID: 7456212087459769202}
   - component: {fileID: 3544180857103638514}
   - component: {fileID: 658993661454595706}
-  - component: {fileID: 1202893831263854967}
+  - component: {fileID: 1382033314089819853}
   m_Layer: 9
   m_Name: MissileYellow
-  m_TagString: Bullet
+  m_TagString: Missile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3575463322957919256
 Transform:
   m_ObjectHideFlags: 0
@@ -36,7 +37,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &3481054657789116328
+--- !u!135 &642410047714400545
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3572234725019500090}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &7456212087459769202
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,7 +61,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3544180857103638514
 Rigidbody:
@@ -77,8 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8680193516fd404f8527c6d2634492b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
---- !u!114 &1202893831263854967
+  speed: 60
+--- !u!114 &1382033314089819853
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,7 +101,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3572234725019500090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2632378dbec8bf41a984936613a7e9b, type: 3}
+  m_Script: {fileID: 11500000, guid: e2ca1d717e1efbb429661e173aab7189, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3572234725792639932
