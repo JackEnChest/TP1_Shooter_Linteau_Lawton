@@ -367,7 +367,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &89886309
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1844,7 +1844,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 282840810}
-  m_LocalRotation: {x: 0.117014244, y: -0.0000000021148099, z: -2.4918465e-10, w: 0.99313027}
+  m_LocalRotation: {x: 0.117014244, y: 8.743147e-12, z: 1.0301475e-12, w: 0.99313027}
   m_LocalPosition: {x: 1.723999, y: 24.150002, z: -89.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2087,7 +2087,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 306279178}
-  m_LocalRotation: {x: 0.09897816, y: 0.000000007413996, z: -7.374448e-10, w: 0.99508965}
+  m_LocalRotation: {x: 0.09897817, y: 8.72264e-18, z: 9.287095e-18, w: 0.99508965}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4692,6 +4692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialLives: 5
+  invincibilityTime: 0.5
 --- !u!136 &1032903427
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -4745,7 +4746,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -7981,7 +7982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1753042965
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8869,7 +8870,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

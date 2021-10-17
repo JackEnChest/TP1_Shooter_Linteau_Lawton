@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     private GameObject textGameOver;
     private GameObject textVictory;
 
+    private AudioSource musicSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +48,10 @@ public class GameManager : MonoBehaviour
 
         textGameOver = GameObject.Find("TextGameOver");
         textVictory = GameObject.Find("TextVictory");
+        textGameOver.SetActive(false);
+        textVictory.SetActive(false);
+
+        musicSource = GameObject.Find("Main Camera").GetComponent<AudioSource>();
 
 
         livesOfPlayer = playerLifeManager.getLives();
@@ -161,7 +167,10 @@ public class GameManager : MonoBehaviour
         {
             if (portals[i].activeSelf) aliveEnemies++;
         }
-        if (aliveEnemies == 0) textVictory.SetActive(true);
+        if (aliveEnemies == 0)
+        {
+            textVictory.SetActive(true);
+        }
     }
 
     private void boostManager()

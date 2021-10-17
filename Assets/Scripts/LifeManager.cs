@@ -29,7 +29,7 @@ public class LifeManager : MonoBehaviour
 
     public void decreaseLives(int amount)
     {
-        if (invincibilityTimer < 0)
+        if (invincibilityTimer <= 0)
         {
             lives -= amount;
             checkIfDead();
