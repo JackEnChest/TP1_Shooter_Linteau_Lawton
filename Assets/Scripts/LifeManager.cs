@@ -40,6 +40,7 @@ public class LifeManager : MonoBehaviour
             else if (gameObject.tag == "Player")
             {
                 gameManager.updateLives(lives);
+                invincibilityTimer = invincibilityTime;
             }
         }
     }
