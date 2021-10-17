@@ -3,6 +3,8 @@ using UnityEngine;
 public class LifeManager : MonoBehaviour
 {
     [SerializeField] private int initialLives;
+    [SerializeField] private float invincibilityTime;
+    private float invincibilityTimer = 0;
     private int lives;
     private GameManager gameManager;
     private AudioSource gameObjectAudioSource = null;
@@ -15,6 +17,11 @@ public class LifeManager : MonoBehaviour
         gameObjectAudioSource = transform.parent.GetComponent<AudioSource>();
     }
 
+    void Update()
+    {
+        if (invincibilityTimer > 0) invincibilityTimer -= Time.deltaTime;
+    }
+
     private void OnEnable()
     {
         lives = initialLives;
@@ -22,15 +29,18 @@ public class LifeManager : MonoBehaviour
 
     public void decreaseLives(int amount)
     {
-        lives -= amount;
-        checkIfDead();
-        if (gameObject.tag == "Alien")
+        if (invincibilityTimer < 0)
         {
-            gameManager.spawningOfTokens(gameObject.transform.position);
-        }
-        else if (gameObject.tag == "Player")
-        {
-            gameManager.updateLives(lives);
+            lives -= amount;
+            checkIfDead();
+            if (gameObject.tag == "Alien")
+            {
+                gameManager.spawningOfTokens(gameObject.transform.position);
+            }
+            else if (gameObject.tag == "Player")
+            {
+                gameManager.updateLives(lives);
+            }
         }
     }
 
@@ -73,6 +83,11 @@ public class LifeManager : MonoBehaviour
                 gameObject.SetActive(false);
             }
         }
+    }
+
+    public void makeInvincible()
+    {
+        invincibilityTimer = invincibilityTime;
     }
 
     public int getLives()
