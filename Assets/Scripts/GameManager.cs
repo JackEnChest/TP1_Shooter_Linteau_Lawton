@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     private TextManager textLivesManager;
     private TextManager textMissilesManager;
     private TextManager textBoostManager;
+    private GameObject textGameOver;
+    private GameObject textVictory;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +44,10 @@ public class GameManager : MonoBehaviour
         textMissilesManager = GameObject.Find("TextMissiles").GetComponent<TextManager>();
         textBoostManager = GameObject.Find("TextBoostTime").GetComponent<TextManager>();
 
+        textGameOver = GameObject.Find("TextGameOver");
+        textVictory = GameObject.Find("TextVictory");
+
+
         livesOfPlayer = playerLifeManager.getLives();
         sendInfosToHUD();
     }
@@ -50,20 +56,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         spawningOfAliens();
-
-        //Countdown for the boost shot
-        if (boostTimer > 0)
-        {
-            boostTimer -= Time.deltaTime;
-            playerShootScript.setScatterTimer(boostTimer);
-            int seconds = Mathf.FloorToInt(boostTimer);
-            textBoostManager.setBoostTimeText(seconds);
-        }
-        else
-        {
-            textBoostManager.setBoostTimeText(0);
-            boostTimer = 0;
-        }
+        boostManager();
+        checkIfGameIsOver();
+        checkIfPlayerWon();
     }
 
     public void updateLives(int newLivesValue)
@@ -147,5 +142,42 @@ public class GameManager : MonoBehaviour
     {
         textLivesManager.setLivesText(livesOfPlayer);
         textMissilesManager.setMissilesText(missiles);
+    }
+
+    private void checkIfGameIsOver()
+    {
+        if (livesOfPlayer == 0) textGameOver.SetActive(true);
+    }
+
+    private void checkIfPlayerWon()
+    {
+        int aliveEnemies = 0;
+        for (int i = 0; i < aliens.Length; i++)
+        {
+            if (aliens[i].activeSelf) aliveEnemies++;
+        }
+
+        for (int i = 0; i < portals.Length; i++)
+        {
+            if (portals[i].activeSelf) aliveEnemies++;
+        }
+        if (aliveEnemies == 0) textVictory.SetActive(true);
+    }
+
+    private void boostManager()
+    {
+        //Countdown for the boost shot
+        if (boostTimer > 0)
+        {
+            boostTimer -= Time.deltaTime;
+            playerShootScript.setScatterTimer(boostTimer);
+            int seconds = Mathf.FloorToInt(boostTimer);
+            textBoostManager.setBoostTimeText(seconds);
+        }
+        else
+        {
+            textBoostManager.setBoostTimeText(0);
+            boostTimer = 0;
+        }
     }
 }
