@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     private int livesOfPlayer;
     private int missiles = 0;
     private float boostTimer = 0;
+    private bool gameIsOver = false;
+    private float musicTimer = 0;
+    private bool fullStop = false;
 
     private TextManager textLivesManager;
     private TextManager textMissilesManager;
@@ -63,8 +66,11 @@ public class GameManager : MonoBehaviour
     {
         spawningOfAliens();
         boostManager();
-        checkIfGameIsOver();
-        checkIfPlayerWon();
+        if (!fullStop)
+        {
+            checkIfGameIsOver();
+            checkIfPlayerWon();
+        }
     }
 
     public void updateLives(int newLivesValue)
@@ -152,7 +158,11 @@ public class GameManager : MonoBehaviour
 
     private void checkIfGameIsOver()
     {
-        if (livesOfPlayer == 0) textGameOver.SetActive(true);
+        if (livesOfPlayer == 0)
+        {
+            fullStop = true;
+            textGameOver.SetActive(true);
+        }
     }
 
     private void checkIfPlayerWon()
@@ -167,9 +177,22 @@ public class GameManager : MonoBehaviour
         {
             if (portals[i].activeSelf) aliveEnemies++;
         }
-        if (aliveEnemies == 0)
+        if (aliveEnemies == 0 && !gameIsOver)
         {
+            gameIsOver = true;
+            musicTimer = 3;
+            musicSource.loop = false;
+            StartCoroutine(FadeAudioSource.StartFade(musicSource, 3, 0));
             textVictory.SetActive(true);
+        }
+        if (musicTimer > 0 && gameIsOver) musicTimer -= Time.deltaTime;
+        if(musicTimer < 0 && gameIsOver)
+        {
+            StopCoroutine("StartFade");
+            musicSource.clip = SoundManager.Instance.victoryClip;
+            musicSource.Play();
+            StartCoroutine(FadeAudioSource.StartFade(musicSource, 3, 0.25f));
+            fullStop = true;
         }
     }
 
